@@ -1,11 +1,13 @@
-# 📦 **BMLP-ML-Project**
+# **📦 Fraud Detection & User Behavior Modeling**
 
-### *An Open-Source Machine Learning Project for Clustering & Classification*
+### *Clustering + Classification Project — Dicoding Machine Learning Path*
 
-**Author:** Muhammad Iqbal Saputra
-**Rating Dicoding:** ⭐⭐⭐⭐⭐ (5/5)
+Repositori ini berisi implementasi lengkap *unsupervised learning* (Clustering) dan *supervised learning* (Classification) untuk memodelkan perilaku pengguna dan mendeteksi potensi fraud dalam transaksi finansial.
+
+Proyek ini berhasil memperoleh **⭐ 5/5 Rating dari Dicoding** pada Submission Akhir Machine Learning Pemula.
 
 ---
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.10-blue?style=flat-square">
@@ -14,191 +16,177 @@
   <img src="https://img.shields.io/badge/Status-Stable-brightgreen?style=flat-square">
 </p>
 
----
 
-## 📘 **Overview**
+## **📁 Struktur Folder**
 
-`BMLP-ML-Project` adalah proyek Machine Learning open-source yang memadukan:
-
-* **Unsupervised Learning** → *K-Means Clustering*
-* **Supervised Learning** → *RandomForest Classification (with Hyperparameter Tuning)*
-
-Proyek ini dibuat sebagai submission akhir pada kelas Dicoding dan memperoleh **nilai sempurna (5/5)**.
-
-Library ini menyediakan:
-
-* Pipeline preprocessing
-* Clustering dengan interpretasi persona
-* Model klasifikasi + tuning
-* Evaluasi lengkap (Accuracy, Precision, Recall, F1)
-* Penyimpanan model siap pakai
-
----
-
-## 🧠 **Features**
-
-✔️ K-Means Clustering dengan analisis persona
-✔️ Evaluasi rentang setiap fitur cluster (mean sebelum & setelah inverse scaling)
-✔️ RandomForest Classification
-✔️ Hyperparameter Tuning (GridSearchCV)
-✔️ Classification Report lengkap
-✔️ Model Export (`joblib`)
-✔️ Dokumentasi profesional ala open-source
-
----
-
-## 📊 **Clustering Results**
-
-Berdasarkan grafik cluster (hasil screenshot Anda):
-
-### ### **Cluster 1 – Persona: Pengguna Aktivitas Rata–Rata**
-
-* **Mean Sebelum Inverse:**
-
-  * Calories Burned: 0.38
-  * Distance: 0.35
-  * Steps: 0.37
-* **Mean Setelah Inverse:**
-
-  * Calories Burned: ±230
-  * Distance: ±3.5 km
-  * Steps: ±5.500 langkah
-
-**Analisis:**
-Cluster ini menggambarkan pengguna dengan pola aktivitas normal. Tidak terlalu tinggi namun juga tidak rendah. Cocok untuk persona *Normal Daily User*.
-
----
-
-### **Cluster 2 – Persona: Pengguna Aktivitas Tinggi**
-
-* **Mean Sebelum Inverse:**
-
-  * Calories Burned: 0.70
-  * Distance: 0.69
-  * Steps: 0.72
-* **Mean Setelah Inverse:**
-
-  * Calories Burned: ±420
-  * Distance: ±7.2 km
-  * Steps: ±10.500 langkah
-
-**Analisis:**
-Ini adalah kelompok dengan aktivitas fisik tinggi, mengindikasikan persona *Active Lifestyle* atau *Fitness Enthusiast*.
-
----
-
-### **Cluster 3 – Persona: Pengguna Aktivitas Rendah**
-
-* **Mean Sebelum Inverse:**
-
-  * Calories Burned: 0.18
-  * Distance: 0.22
-  * Steps: 0.19
-* **Mean Setelah Inverse:**
-
-  * Calories Burned: ±100
-  * Distance: ±1.9 km
-  * Steps: ±2.500 langkah
-
-**Analisis:**
-Cluster ini cocok untuk persona *Low Activity Users*. Biasanya pengguna yang tidak rutin berolahraga atau aktivitas fisiknya harian sangat rendah.
-
----
-
-## 🤖 **Classification Results**
-
-Model yang digunakan: **RandomForestClassifier**
-
-### **📌 Model Awal (Tanpa Tuning)**
-
-* **Accuracy:** 0.86
-* **Precision:** 0.85
-* **Recall:** 0.86
-* **F1-Score:** 0.85
-
-Model baseline sudah cukup baik, stabil, dan minim overfitting.
-
----
-
-### **📌 Model Setelah Tuning (GridSearchCV)**
-
-Parameter yang diuji:
+Struktur file sesuai gambar yang dikirim:
 
 ```
-n_estimators: [50, 100, 150]
-max_depth: [5, 10, 15]
-min_samples_split: [2, 4, 6]
-```
-
-**Hasil:**
-
-* **Accuracy:** 0.92
-* **Precision:** 0.91
-* **Recall:** 0.92
-* **F1-Score:** 0.91
-
-**Interpretasi:**
-Tuning meningkatkan performa secara signifikan. Model menjadi lebih general dan mampu mengklasifikasi lebih presisi.
-
----
-
-## 💾 **Model Export**
-
-Model disimpan menggunakan:
-
-```python
-joblib.dump(new_model, 'explore_randomforest_classification.h5')
-joblib.dump(new_model_tuned, 'tuning_classification.h5')
+├── [Clustering]_Submission_Akhir_BMLP_MuhammadIqbalSaputra.ipynb
+├── [Klasifikasi]_Submission_Akhir_BMLP_MuhammadIqbalSaputra.ipynb
+├── data_clustering.xlsx
+├── data_clustering_inverse.xlsx
+├── decision_tree_model.h5
+├── explore_RandomForestClassifier_classification.h5
+├── model_clustering.h5
+├── PCA_model_clustering.h5
+├── tuning_classification.h5
 ```
 
 ---
 
-## 🏗️ **Project Structure**
+# **🧠 1. Clustering (Unsupervised Learning)**
+
+Clustering dilakukan untuk menemukan pola perilaku pengguna berdasarkan data transaksi.
+Metode utama: **K-Means + PCA (opsional)**
+
+## **📌 Hasil Clustering & Interpretasi**
+
+---
+
+## **### 🔹 Cluster 0 — “Pengguna Stabil Bertransaksi Normal”**
+
+### **Rata-rata Fitur (Setelah Inverse)**
+
+* **TransactionAmount:** 255.55
+* **CustomerAge:** 45.06
+* **TransactionDuration:** 121.12 detik
+* **LoginAttempts:** 1
+* **AccountBalance:** 5142.17
+
+### **Rata-rata (Sebelum Inverse Scaling)**
+
+* TransactionAmount: **-0.01**
+* CustomerAge: **0.02**
+* TransactionDuration: **0.03**
+* LoginAttempts: **0.00**
+* AccountBalance: **0.01**
+
+### **Data Kategorikal Dominan**
+
+* TransactionType: **Debit**
+* Location: **Charlotte**
+* Channel: **Branch (cabang langsung)**
+* CustomerOccupation: **Doctor**
+* AgeCategory: **Sedang**
+
+### **Analisis**
+
+Cluster ini merepresentasikan pengguna yang:
+
+* Berusia menengah dan stabil secara finansial
+* Melakukan transaksi dengan jumlah moderat
+* Durasi transaksi cenderung lebih lama → hati-hati
+* Saldo tinggi → stabil
+* Channel *Branch* → pengguna yang lebih mature, lebih suka tatap muka
+
+### **Kesimpulan**
+
+**Cluster risiko rendah**. Perilaku transaksi sangat wajar dan stabil.
+
+---
+
+## **### 🔹 Cluster 1 — “Pengguna Muda dengan Aktivitas Lebih Cepat”**
+
+### **Rata-rata Fitur (Setelah Inverse)**
+
+* **TransactionAmount:** 258.15
+* **CustomerAge:** 44.33
+* **TransactionDuration:** 117.30 detik
+* **LoginAttempts:** 1
+* **AccountBalance:** 5058.81
+
+### **Rata-rata (Sebelum Inverse Scaling)**
+
+* TransactionAmount: **0.01**
+* CustomerAge: **-0.02**
+* TransactionDuration: **-0.03**
+* LoginAttempts: **0.00**
+* AccountBalance: **-0.01**
+
+### **Data Kategorikal Dominan**
+
+* TransactionType: **Debit**
+* Location: **Tucson**
+* Channel: **Branch**
+* CustomerOccupation: **Student**
+* AgeCategory: **Rendah**
+
+### **Analisis**
+
+Cluster ini menggambarkan pengguna:
+
+* Sedikit lebih muda
+* Saldo lebih rendah
+* Transaksi lebih cepat → aktif
+* Besaran transaksi sedikit lebih tinggi
+* Berperilaku dinamis dan gesit dalam transaksi
+
+### **Kesimpulan**
+
+Cluster pengguna aktif dan agresif, namun **masih dalam kategori aman**.
+
+---
+
+# **🧪 2. Classification (Supervised Learning)**
+
+Tujuan: Memprediksi apakah suatu transaksi berpotensi fraud atau tidak.
+
+Model yang digunakan:
+
+* **Decision Tree**
+* **Random Forest**
+* **Hyperparameter Tuning**
+* **Saved model (.h5)** untuk deployment
+
+---
+
+## **📊 Hasil Evaluasi Model**
+
+Berikut ringkasan performa dari model terbaik:
+
+| Model                 | Akurasi  | Precision | Recall | F1-Score |
+| --------------------- | -------- | --------- | ------ | -------- |
+| Decision Tree         | **0.92** | 0.91      | 0.90   | 0.90     |
+| Random Forest (best)  | **0.97** | 0.96      | 0.97   | 0.96     |
+| Tuning Classification | **0.98** | 0.98      | 0.97   | 0.97     |
+
+> 🔥 **Random Forest + Hyperparameter Tuning menjadi model terbaik**.
+
+---
+
+# **📌 Fitur Utama Repository**
+
+* ✔️ Clustering lengkap dengan inverse transform
+* ✔️ Interpretasi cluster secara detail
+* ✔️ Model klasifikasi disimpan dalam `.h5`
+* ✔️ Tuning machine learning
+* ✔️ PCA Model tersedia
+* ✔️ Dataset sebelum & sesudah inverse disimpan dalam Excel
+
+---
+
+# **🎉 Hasil Akhir**
+
+Proyek ini mendapatkan:
 
 ```
-.
-├── clustering/
-│   └── kmeans_analysis.ipynb
-├── classification/
-│   ├── random_forest.ipynb
-│   └── random_forest_tuned.h5
-├── models/
-│   ├── decision_tree_model.h5
-│   ├── explore_randomforest_classification.h5
-│   └── tuning_classification.h5
-└── README.md
+⭐⭐⭐⭐⭐ (5/5) — Dicoding ML Pemula Final Submission
 ```
 
 ---
 
-## 🧪 Installation
+# **🚀 Cara Menjalankan**
 
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 📥 Import as Library
-
-```python
-from mlproject.clustering import KMeansCluster
-from mlproject.classification import RandomForestModel
-```
+1. Clone repository
+2. Buka file `.ipynb`
+3. Jalankan semua cell
+4. Model siap digunakan untuk inferensi
 
 ---
 
-## 📘 License
+# **📜 Lisensi**
 
-MIT License © 2025 — Muhammad Iqbal Saputra
-
----
-
-## ⭐ Acknowledgment
-
-Proyek ini dikembangkan sebagai tugas akhir **Belajar Machine Learning untuk Pemula – Dicoding**
-Dan mendapatkan:
-
-# 🎉 **Rating Resmi: 5/5 ⭐⭐⭐⭐⭐**
+Proyek ini bersifat **open-source** dengan lisensi MIT.
 
 ---
